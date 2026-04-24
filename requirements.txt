@@ -1,0 +1,24 @@
+# OSINT-Village-BsidesKC-2026 — Python dependencies
+# Install: pip install -r requirements.txt
+
+# Core — required for all scripts
+requests>=2.31.0
+dnspython>=2.4.0
+
+# domain_to_dossier.py also uses concurrent.futures, dataclasses (stdlib)
+
+# favicon_pivot.py
+mmh3>=4.0.0
+beautifulsoup4>=4.12.0   # for parsing <link rel="icon"> fallback per QA spec
+
+# plants_to_kml.py
+simplekml>=1.3.6
+
+# Optional — only needed if you use the official vendor SDKs.
+# All scripts in this repo use raw HTTP, so these are not required.
+# shodan>=1.31.0
+# censys>=2.2.0
+
+# theHarvester is NOT pip-installable from PyPI (the package there is a
+# placeholder). Install from git per Students-Start-Here:
+# pip install git+https://github.com/laramies/theHarvester.git
