@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WILDCARD · Corporate Recon Field Reference</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   WILDCARD · Corporate Recon Cheatsheet
+   Casino-noir · black / wildcard-green / brushed-silver
+   Ace of spades brand mark · letter-size print-ready
+   ============================================================ */
+
+:root {
+  /* Screen palette */
+  --ink: #0a0a0a;
+  --ink-deep: #050505;
+  --bone: #f5f1ea;
+  --silver: #c4c4c4;
+  --silver-bright: #e8e8e8;
+  --silver-dim: #6b6b6b;
+  --silver-rule: #2a2a2a;
+  --green: #00d764;
+  --green-deep: #008c3e;
+  --green-glow: rgba(0, 215, 100, 0.18);
+  --blood: #d63d3d;
+  --hunter: #2196F3;
+  --ghost:  #FF8A00;
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 15px; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--silver-bright);
+  font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  font-feature-settings: "kern" 1, "liga" 1, "ss01" 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 8.5in;
+  margin: 0 auto;
+  padding: 0;
+  background: var(--ink);
+}
+
+/* ============================================================
+   HEADER · WILDCARD wordmark + ace of spades + tagline
+   ============================================================ */
+.brand-header {
+  position: relative;
+  background: linear-gradient(180deg, var(--ink-deep) 0%, var(--ink) 100%);
+  border-top: 4px solid var(--green);
+  border-bottom: 1px solid var(--silver-rule);
+  padding: 28px 36px 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 28px;
+  overflow: hidden;
+}
+
+.brand-header::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at top right, var(--green-glow) 0%, transparent 55%),
+    repeating-linear-gradient(45deg, transparent 0 12px, rgba(255,255,255,0.012) 12px 24px);
+  pointer-events: none;
+}
+
+.brand-spade {
+  width: 64px;
+  height: 64px;
+  color: var(--silver-bright);
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 0 8px var(--green-glow));
+}
+
+.brand-text { position: relative; z-index: 1; }
+
+.brand-wordmark {
+  font-family: "Big Shoulders Display", "Impact", sans-serif;
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 0.9;
+  letter-spacing: 0.08em;
+  color: var(--silver-bright);
+  margin: 0;
+  text-transform: uppercase;
+}
+.brand-wordmark .accent {
+  color: var(--green);
+  text-shadow: 0 0 12px var(--green-glow);
+}
+
+.brand-tagline {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+  margin: 6px 0 0;
+}
+
+.brand-meta {
+  position: relative;
+  z-index: 1;
+  text-align: right;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--silver-dim);
+  letter-spacing: 0.04em;
+}
+.brand-meta .target-name {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+.brand-meta .scope {
+  color: var(--silver);
+  font-size: 8.5px;
+}
+
+/* ============================================================
+   SECTIONS · two-column body grid
+   ============================================================ */
+.body-grid {
+  padding: 18px 28px 32px;
+  column-count: 2;
+  column-gap: 22px;
+  column-rule: 1px solid var(--silver-rule);
+}
+
+.section {
+  break-inside: avoid;
+  margin-bottom: 18px;
+  padding: 0;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--green-deep);
+}
+
+.section-num {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--green);
+  letter-spacing: 0.02em;
+  min-width: 28px;
+}
+
+.section-title {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--silver-bright);
+  margin: 0;
+  flex: 1;
+}
+
+.section-pip {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 9px;
+  color: var(--silver-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ============================================================
+   CONTENT ELEMENTS
+   ============================================================ */
+.section p {
+  margin: 0 0 8px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--silver-bright);
+}
+
+.section ul {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+}
+.section ul li {
+  padding-left: 14px;
+  position: relative;
+  font-size: 11px;
+  line-height: 1.5;
+  margin-bottom: 3px;
+  color: var(--silver-bright);
+}
+.section ul li::before {
+  content: "♠";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--green);
+  font-size: 9px;
+}
+
+.checklist li::before {
+  content: "□";
+  font-size: 12px;
+  color: var(--silver);
+  top: -1px;
+}
+
+code, pre {
+  font-family: "JetBrains Mono", "Menlo", monospace;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+code {
+  background: rgba(0, 215, 100, 0.10);
+  color: var(--green);
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 10.5px;
+}
+
+pre {
+  background: var(--ink-deep);
+  border: 1px solid var(--silver-rule);
+  border-left: 2px solid var(--green);
+  color: var(--silver-bright);
+  padding: 8px 10px;
+  margin: 6px 0 10px;
+  border-radius: 0;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.45;
+}
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: 9.5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0 10px;
+  font-size: 10px;
+  line-height: 1.4;
+}
+th {
+  background: var(--green-deep);
+  color: var(--bone);
+  text-align: left;
+  padding: 4px 6px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 9px;
+  border: 1px solid var(--green-deep);
+}
+td {
+  padding: 4px 6px;
+  border: 1px solid var(--silver-rule);
+  vertical-align: top;
+  color: var(--silver-bright);
+}
+td code {
+  font-size: 9.5px;
+}
+
+.callout {
+  border-left: 2px solid var(--blood);
+  background: rgba(214, 61, 61, 0.08);
+  padding: 6px 10px;
+  margin: 8px 0;
+  font-size: 10.5px;
+  color: var(--silver-bright);
+}
+.callout strong { color: var(--blood); }
+
+.tier-tag {
+  display: inline-block;
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-right: 6px;
+}
+.tier-hunter { background: var(--hunter); color: var(--ink); }
+.tier-ghost  { background: var(--ghost);  color: var(--ink); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.brand-footer {
+  border-top: 1px solid var(--silver-rule);
+  background: var(--ink-deep);
+  padding: 14px 28px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  color: var(--silver-dim);
+  letter-spacing: 0.04em;
+}
+.brand-footer .footer-spade {
+  width: 18px;
+  height: 18px;
+  color: var(--green);
+}
+.brand-footer .footer-rules {
+  text-align: center;
+  color: var(--silver);
+  font-weight: 500;
+}
+.brand-footer .footer-mark {
+  text-align: right;
+  color: var(--silver-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 8.5px;
+}
+
+/* ============================================================
+   PRINT — flip to ink-on-paper, preserve green accent
+   ============================================================ */
+@page {
+  size: letter;
+  margin: 0.4in 0.45in;
+}
+
+@media print {
+  :root {
+    --ink: #ffffff;
+    --ink-deep: #fafafa;
+    --bone: #ffffff;
+    --silver: #555555;
+    --silver-bright: #0a0a0a;
+    --silver-dim: #777777;
+    --silver-rule: #cccccc;
+    --green: #007a35;
+    --green-deep: #006128;
+    --green-glow: rgba(0, 122, 53, 0.10);
+    --blood: #a82626;
+  }
+  body {
+    background: #fff;
+    color: #0a0a0a;
+    font-size: 9.5pt;
+    line-height: 1.32;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  html { font-size: 13px; }
+  .page { max-width: none; padding: 0; }
+
+  .brand-header {
+    background: #fff;
+    border-top: 3pt solid var(--green);
+    border-bottom: 0.75pt solid #999;
+    padding: 12pt 0 10pt;
+  }
+  .brand-header::before { display: none; }
+  .brand-wordmark { font-size: 36pt; color: #0a0a0a; }
+  .brand-wordmark .accent { color: var(--green); text-shadow: none; }
+  .brand-tagline { color: #555; font-size: 8pt; margin-top: 3pt; }
+  .brand-spade { width: 38pt; height: 38pt; color: #0a0a0a; filter: none; }
+  .brand-meta { color: #555; font-size: 7.5pt; }
+  .brand-meta .target-name { color: var(--green); font-size: 9pt; }
+  .brand-meta .scope { color: #444; font-size: 7pt; }
+
+  .body-grid {
+    padding: 10pt 0 12pt;
+    column-gap: 14pt;
+    column-rule: 0.5pt solid #ccc;
+  }
+
+  .section { margin-bottom: 10pt; }
+  .section-head { border-bottom: 0.75pt solid var(--green); padding-bottom: 3pt; margin-bottom: 5pt; }
+  .section-num { font-size: 18pt; }
+  .section-title { font-size: 11pt; color: #0a0a0a; }
+  .section-pip { color: #777; font-size: 7pt; }
+
+  .section p, .section ul li { color: #0a0a0a; font-size: 8.5pt; line-height: 1.32; }
+  .section ul li { margin-bottom: 1.5pt; }
+  .section ul li::before { color: var(--green); }
+  .checklist li::before { color: #555; }
+
+  code {
+    background: #f0f9f0;
+    color: var(--green-deep);
+    border: 0.4pt solid #d8ecdc;
+    font-size: 7.5pt;
+  }
+  pre {
+    background: #f7f7f4;
+    border: 0.4pt solid #ccc;
+    border-left: 1.5pt solid var(--green);
+    color: #0a0a0a;
+    padding: 5pt 7pt;
+    margin: 4pt 0 6pt;
+    font-size: 7.5pt;
+    line-height: 1.35;
+  }
+  pre code { color: #0a0a0a; font-size: 7.5pt; }
+
+  table { font-size: 7.5pt; margin: 3pt 0 6pt; }
+  th { background: var(--green); color: #fff; font-size: 7pt; padding: 2pt 4pt; border: 0.4pt solid var(--green-deep); }
+  td { color: #0a0a0a; padding: 2pt 4pt; border: 0.4pt solid #d4d4d4; }
+  td code { font-size: 7pt; background: #f0f9f0; }
+
+  .callout {
+    border-left: 1.5pt solid var(--blood);
+    background: #fbe9e9;
+    padding: 4pt 7pt;
+    font-size: 8pt;
+    color: #0a0a0a;
+  }
+
+  .tier-tag { font-size: 7pt; padding: 1pt 5pt; }
+
+  .brand-footer {
+    background: #fff;
+    border-top: 0.75pt solid #999;
+    padding: 6pt 0;
+    font-size: 7pt;
+    color: #555;
+  }
+  .brand-footer .footer-spade { color: var(--green); }
+  .brand-footer .footer-mark { color: #555; font-size: 6.5pt; }
+  .brand-footer .footer-rules { color: #0a0a0a; }
+}
+</style>
+</head>
+<body>
+
+<!-- Inline SVG: classic ace-of-spades pip, used at multiple sizes via class -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spade" viewBox="0 0 100 100">
+      <path d="M 50 4
+               C 30 21, 10 43, 10 62
+               C 10 76, 22 86, 35 84
+               C 44 83, 49 78, 50 72
+               C 49 82, 44 91, 36 96
+               L 64 96
+               C 56 91, 51 82, 50 72
+               C 51 78, 56 83, 65 84
+               C 78 86, 90 76, 90 62
+               C 90 43, 70 21, 50 4 Z"
+            fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="page">
+
+  <!-- ============================================================
+       BRAND HEADER
+       ============================================================ -->
+  <header class="brand-header">
+    <svg class="brand-spade" aria-label="Ace of spades">
+      <use href="#spade"/>
+    </svg>
+    <div class="brand-text">
+      <h1 class="brand-wordmark">WILD<span class="accent">C</span>ARD</h1>
+      <p class="brand-tagline">Corporate Recon · Field Reference</p>
+    </div>
+    <div class="brand-meta">
+      <span class="target-name">OSINT Village</span>
+      <span>One-page field card</span><br>
+      <span class="scope">Passive only · No active scans · No individuals</span>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       BODY · two-column
+       ============================================================ -->
+  <main class="body-grid">
+
+    <!-- 0 PRE-FLIGHT -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">00</span>
+        <h2 class="section-title">Pre-Flight</h2>
+        <span class="section-pip">Before every engagement</span>
+      </div>
+      <ul class="checklist">
+        <li>VPN active — verify exit IP ≠ home ISP at <code>ifconfig.me</code></li>
+        <li>Dedicated browser profile, NOT personal browser</li>
+        <li>All personal accounts signed out (Google, LinkedIn, GitHub)</li>
+        <li>LinkedIn → Settings → Visibility → Private Mode</li>
+        <li>Notes file open with target name + first timestamp</li>
+        <li>Sober, calm, focused — re-check after every break</li>
+      </ul>
+    </section>
+
+    <!-- 1 IDENTIFY -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Identify</h2>
+        <span class="section-pip">Who is the target?</span>
+      </div>
+      <table>
+        <thead><tr><th>Source</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td><code>efts.sec.gov/LATEST/search-index</code></td><td>EDGAR full-text · forms=10-K</td></tr>
+          <tr><td><code>sec.gov/cgi-bin/browse-edgar</code></td><td>Filings by CIK</td></tr>
+          <tr><td>Exhibit&nbsp;21 (inside any 10-K)</td><td>Full subsidiary list</td></tr>
+          <tr><td><code>usaspending.gov/recipient</code></td><td>Federal contracts (NOT SAM.gov)</td></tr>
+          <tr><td><code>opencorporates.com</code></td><td>International entity records</td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>M&amp;A 4-state verify</strong> (run before enumerating any acquired domain):</p>
+<pre><code>curl -sI https://acquired.com | grep -i location</code></pre>
+      <p>→ <strong>Absorbed</strong> (redirects to parent) · <strong>Independent</strong> (own content) · <strong>Sunset</strong> (404 / archive only) · <strong>Divested</strong> (different parent / NXDOMAIN)</p>
+    </section>
+
+    <!-- 2 PASSIVE ENUM -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Passive Enumeration</h2>
+        <span class="section-pip">What's exposed?</span>
+      </div>
+
+      <p><strong>Unified chain</strong> — commit to muscle memory:</p>
+<pre><code>subfinder -silent -d &lt;domain&gt; \
+  | dnsx -silent -resp-only \
+  | sort -u
+
+# add ASN
+subfinder -silent -d &lt;domain&gt; \
+  | dnsx -silent -resp-only \
+  | asnmap -silent</code></pre>
+
+      <p><strong>Fallback order if upstream fails:</strong></p>
+      <ul>
+        <li><code>Mirrors/subfinder/&lt;target&gt;.txt</code> (pre-cached)</li>
+        <li><code>Mirrors/crtsh/&lt;target&gt;.json</code> (pre-cached)</li>
+        <li>Certspotter · Censys CT · Merklemap</li>
+      </ul>
+
+      <p><strong>DNS disclosure walk:</strong></p>
+<pre><code>dig +short TXT &lt;domain&gt;   # SaaS vendor map
+dig +short MX  &lt;domain&gt;   # mail platform
+dig +short NS  &lt;domain&gt;   # DNS provider
+dig +short SPF &lt;domain&gt;   # email senders</code></pre>
+
+      <p><strong>ASN via Cymru DNS</strong> — no quota, no key:</p>
+<pre><code># reverse 12.34.56.78 → 78.56.34.12
+dig +short TXT 78.56.34.12.origin.asn.cymru.com</code></pre>
+
+      <p><strong>Shodan InternetDB</strong> (keyless, dedupe to distinct IPs first):</p>
+<pre><code>curl -s https://internetdb.shodan.io/&lt;ip&gt; | jq</code></pre>
+
+      <p><strong>RFC1918 leak hunt in CT-derived hostnames:</strong></p>
+<pre><code>grep -E '(^|[^0-9])(10|172\.(1[6-9]|2[0-9]|3[01])|192\.168)\.' subs.txt</code></pre>
+    </section>
+
+    <!-- 3 ACTIVE-PASSIVE -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Active Toolset · Passive Demos</h2>
+        <span class="section-pip">Drive the tools, hold the line</span>
+      </div>
+
+      <p><strong>theHarvester</strong> — install from git, use explicit sources (never <code>-b all</code>):</p>
+<pre><code>pip install git+https://github.com/laramies/theHarvester.git
+
+theHarvester -d &lt;domain&gt; \
+  -b duckduckgo,crtsh,dnsdumpster,yahoo,rapiddns,\
+hackertarget,otx,certspotter,urlscan \
+  -l 200 -f harvester.html</code></pre>
+
+      <p><strong>recon-ng</strong> — pruned to working modules:</p>
+<pre><code>recon-ng -w &lt;workspace&gt;
+&gt; db insert domains &lt;domain&gt;
+&gt; modules load recon/domains-hosts/netcraft
+&gt; run</code></pre>
+
+      <div class="callout">
+        <strong>WILDCARD DETECTION FIRST</strong> — always before any DNS brute:
+<pre style="margin-top:4px"><code>dig +short DEFINITELY-NOT-REAL-XYZQ123.&lt;domain&gt;</code></pre>
+        NXDOMAIN = safe to brute (on authorized targets). Any IPs returned = wildcard; filter brute output against them.
+      </div>
+
+      <p><strong>holehe symbols:</strong> <code>[+]</code> hit · <code>[-]</code> confirmed-not-registered · <code>[x]</code> inconclusive (NOT a hit)</p>
+
+      <p><strong>Foundation DNS</strong> in NS records → <code>gold.foundationdns.com/.net/.org</code> = Cloudflare enterprise.</p>
+    </section>
+
+    <!-- 4 PROFILE & PIVOT -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Profile &amp; Pivot</h2>
+        <span class="section-pip">Tech, physical, regulatory</span>
+      </div>
+      <table>
+        <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>whatweb -a 1</code></td><td>passive HTTP fingerprint</td></tr>
+          <tr><td>Wappalyzer (ext)</td><td>CMS/CDN/JS stack readout</td></tr>
+          <tr><td>BuiltWith</td><td>historical stack (free tier)</td></tr>
+          <tr><td><code>favicon_pivot.py</code></td><td>mmh3 hash → Shodan/Censys pivot</td></tr>
+          <tr><td>EPA Envirofacts</td><td>FRS · TRI · ECHO compliance</td></tr>
+          <tr><td>OSHA establishment</td><td>inspections, citations (browser)</td></tr>
+          <tr><td>FAA Registry</td><td>tail #s by company (browser)</td></tr>
+          <tr><td>FCC ULS</td><td>licensed wireless (browser)</td></tr>
+          <tr><td>Google Patents</td><td>by assignee — default; no key</td></tr>
+          <tr><td>ADS-B Exchange</td><td>historical flight tracks</td></tr>
+        </tbody>
+      </table>
+      <p><strong>KML deliverable</strong> — leadership-grade visual:</p>
+<pre><code>python3 plants_to_kml.py plants.csv \
+  --output plants.kml --title "Facilities"</code></pre>
+    </section>
+
+    <!-- 5 REPORT -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Report</h2>
+        <span class="section-pip">Assemble &amp; rate every claim</span>
+      </div>
+
+      <p><strong>8-section dossier:</strong></p>
+      <ul>
+        <li><strong>1.</strong> Executive Summary <em>(write FIRST · 3 bullets)</em></li>
+        <li><strong>2.</strong> Org Footprint</li>
+        <li><strong>3.</strong> Domains &amp; IP Space</li>
+        <li><strong>4.</strong> Tech Stack &amp; Exposed Services</li>
+        <li><strong>5.</strong> People &amp; Roles <em>(patterns only)</em></li>
+        <li><strong>6.</strong> Physical &amp; Regulatory</li>
+        <li><strong>7.</strong> Notable Findings <em>(3–5 "so what")</em></li>
+        <li><strong>8.</strong> Footprint Self-Audit</li>
+      </ul>
+
+      <p><strong>Admiralty Code</strong> — tag every claim <code>[Letter Number]</code>:</p>
+      <table>
+        <thead><tr><th>Letter · source</th><th>Number · info</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong> Completely reliable</td><td><strong>1</strong> Confirmed by independents</td></tr>
+          <tr><td><strong>B</strong> Usually reliable</td><td><strong>2</strong> Probably true</td></tr>
+          <tr><td><strong>C</strong> Fairly reliable</td><td><strong>3</strong> Possibly true</td></tr>
+          <tr><td><strong>D</strong> Not usually reliable</td><td><strong>4</strong> Doubtful</td></tr>
+          <tr><td><strong>E</strong> Unreliable</td><td><strong>5</strong> Improbable</td></tr>
+          <tr><td><strong>F</strong> Cannot judge</td><td><strong>6</strong> Cannot judge</td></tr>
+        </tbody>
+      </table>
+      <p><strong>CRAAP</strong> per source: <strong>C</strong>urrency · <strong>R</strong>elevance · <strong>A</strong>uthority · <strong>A</strong>ccuracy · <strong>P</strong>urpose</p>
+    </section>
+
+    <!-- TIER GRADUATION -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">♠</span>
+        <h2 class="section-title">Tier Graduation</h2>
+        <span class="section-pip">Same room · same target</span>
+      </div>
+      <p><span class="tier-tag tier-hunter">Hunter</span> Step-by-step labs · checklist deliverables · try the Ghost preview challenge if you finish early.</p>
+      <p><span class="tier-tag tier-ghost">Ghost</span> Open objectives · automate the repetitive work · MD + KML + JSON deliverables · cross-correlate findings across sections.</p>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="brand-footer">
+    <svg class="footer-spade" aria-hidden="true"><use href="#spade"/></svg>
+    <div class="footer-rules">PASSIVE ONLY · CITE EVERYTHING · RATE EVERY CLAIM · PATTERNS NOT INDIVIDUALS</div>
+    <div class="footer-mark">WILDCARD · OSINT VILLAGE</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
