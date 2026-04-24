@@ -197,6 +197,6 @@ MIT, plus an ethical-use statement. See `LICENSE`.
 
 ## Contact
 
-**Wildcard Industries LLC** — Cybersecurity & OSINT Consulting · Lee's Summit, MO
+**Wildcard Industries LLC** — Cybersecurity & OSINT Consulting ·**
 
 Questions, corrections, war stories, and pull requests welcome.
