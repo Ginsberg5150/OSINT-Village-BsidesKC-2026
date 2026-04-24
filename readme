@@ -1,0 +1,202 @@
+# OSINT Village — From Domain to Dossier
+## Student Materials · BSides KC 2026
+
+**A one-day workshop in passive corporate-attack-surface OSINT.**
+**Saturday, April 25, 2026 · 10:00–16:00 · KCKCC, Kansas City, KS**
+
+Welcome. You're here to learn how to walk a public company from a single
+domain name to a fully cited intelligence dossier — using only sources
+that are legally and ethically available to anyone with a browser.
+
+If this is your first time at the workshop, **open `00-Students-Start-Here.md` first.**
+
+---
+
+## Today's target
+
+**Caterpillar Inc.** (NYSE: CAT) · `caterpillar.com`
+
+A heavy-industrial manufacturer with a public corporate footprint, a
+substantial physical surface (plants, regulators, supply chain), and a
+federal contracting presence. CAT exercises the full OSINT toolkit —
+the digital playbook *and* the physical/regulatory layer most "corporate
+recon" courses skip entirely.
+
+Full target scope and ethical guardrails: `Target-Briefs/Target-Caterpillar.md`
+
+---
+
+## The day, at a glance
+
+| Time | Block |
+|------|-------|
+| 10:00–10:20 | Kickoff + environment check |
+| 10:20–11:20 | **Module 1 — Identify** (corp footprint, EDGAR, M&A) |
+| 11:20–12:20 | **Module 2 — Passive Enumeration** (CT logs, DNS, ASN, Shodan) |
+| 12:20–13:20 | 🍱 Lunch |
+| 13:20–14:15 | **Module 3 — Active Techniques, Passive Demos** (the toolset, the fences) |
+| 14:15–15:05 | **Module 4 — Profile and Pivot** (tech stack, people, physical, regulatory) |
+| 15:05–15:40 | **Module 5 — Report** (assemble the dossier, rate every finding) |
+| 15:40–16:00 | Shout-outs + wrap |
+
+**Total:** 5 hours of teaching across 6 hours of class. Each module has
+its own lab. You finish as far as you finish — there's no failing
+silently in this class, and no prizes at the end. The goal is the
+dossier you walk out with.
+
+---
+
+## Two tiers — pick one when you sit down
+
+| Tier | Color | You belong here if... |
+|------|-------|----------------------|
+| 🔵 **Hunter** | Blue | OSINT is new to you, or you've poked at it but never built a real corporate dossier end-to-end |
+| 🟠 **Ghost** | Orange | You're comfortable on a terminal, you've done recon before, you want to automate and chase the obscure |
+
+Hunter is **not** a separate track from Ghost. Every Hunter lab includes
+one explicit "Ghost preview" stretch challenge. The goal is for Hunters
+to migrate up during the day. By Module 5, many will be doing Ghost-tier
+work without consciously switching.
+
+---
+
+## What's in this repo
+
+```
+OSINT-Village-BsidesKC-2026/
+├── README.md                           you are here
+├── 00-Students-Start-Here.md           pre-flight + 10-minute setup guide
+│
+├── Class-Modules/                      lecture material, one .md per phase
+│   ├── Module-1-Identify.md
+│   ├── Module-2-Passive-Enumeration.md
+│   ├── Module-3-Active-Techniques-Passive-Demos.md
+│   ├── Module-4-Profile-and-Pivot.md
+│   └── Module-5-Report.md
+│
+├── Student-Labs/                       hands-on per module, per tier
+│   ├── Lab-Module-1-Hunter.md
+│   ├── Lab-Module-1-Ghost.md
+│   └── ... (one Hunter and one Ghost lab per module)
+│
+├── Target-Briefs/
+│   └── Target-Caterpillar.md           today's target — scope, ethics, why
+│
+├── Student-References/                 cite-as-needed reference materials
+│   ├── Pre-Flight-Checklist.md
+│   ├── Admiralty-Code.md
+│   ├── CRAAP-Test.md
+│   ├── Sock-Puppets.md
+│   └── Jobs-Pipeline.md
+│
+├── Student-Handouts/
+│   ├── Corporate-Recon-Cheatsheet.pdf  print this if you can; it's the trail map
+│   └── Corporate-Recon-Cheatsheet.md   markdown source
+│
+├── Tools-and-Scripts/                  Python scripts (all keyless by default)
+│   ├── README.md                       which tool to use when
+│   ├── domain_to_dossier.py
+│   ├── domain_to_org.py
+│   ├── cert_enum.py
+│   ├── favicon_pivot.py
+│   └── plants_to_kml.py
+│
+├── Mirrors/                            pre-cached upstream data — see below
+│   ├── README.md
+│   ├── crtsh/
+│   ├── wayback/
+│   └── subfinder/
+│
+├── Final-Activity/
+│   └── Wrap-and-Shout-Outs.md          the closing 20 minutes
+│
+└── Class-Template-Notes/
+    └── How-To-Reuse-This-Template.md   for future instructors and future classes
+```
+
+---
+
+## Why there's a `Mirrors/` folder
+
+When 30 people run the same `crt.sh` query at the same time, crt.sh
+returns 502s. When 30 people hit Wayback's CDX API, you get 429s for
+the rest of the day. The `Mirrors/` folder contains snapshots of the
+most load-sensitive upstream sources, captured the night before class.
+
+**If a live source 429s or 502s during a lab, fall back to `Mirrors/<source>/<target>.json`.**
+
+This is a real OSINT practice, not a shortcut. Mirroring upstream
+sources when you have permission and time is what professionals do.
+The mirror in this repo is the lesson, not the cheat.
+
+---
+
+## Quickstart
+
+```bash
+git clone https://github.com/Ginsberg5150/OSINT-Village-BsidesKC-2026.git
+cd OSINT-Village-BsidesKC-2026
+pip install -r requirements.txt
+
+# Confirm a script runs (keyless, no signup needed)
+python3 Tools-and-Scripts/cert_enum.py caterpillar.com
+```
+
+Every script in this repo runs **keyless by default.** No API keys,
+no signup, no credit cards. If a key would deepen a lookup, the script
+prints the URL where you'd get one and continues without it. The
+"$0 versus $500/month" line in OSINT is one of the things you're
+here to learn — you don't need to cross it today to do real work.
+
+---
+
+## Working around blocks IS the skill
+
+Half the value of this class comes from what *doesn't* work cleanly.
+Live sources rate-limit. Tools bit-rot. APIs require keys you don't
+have. Sources that worked yesterday return empty today. The web tries
+to make you feel stupid.
+
+You will hit walls. **Routing around walls is the actual job.** Every
+time a source fails, your first three moves are:
+
+1. Check if there's a mirror in `Mirrors/`
+2. Check the relevant `Class-Modules/` file for a fallback source
+3. Document the failure with a timestamp and an Admiralty rating — *the failure itself is a finding*
+
+Students who finish the day with a dossier of 12 well-sourced findings,
+3 documented dead-ends, and a clean methodology section beat students
+who scrape together 50 unverified items every time.
+
+---
+
+## Scope and ethics
+
+- **Passive only on Caterpillar.** No active scanning, no auth attempts,
+  no contact with employees, dealers, or customers, no engagement with
+  any social account.
+- **Public sources only.** Everything used in this class is available
+  to any member of the public.
+- **Don't be a jerk.** OSINT can protect organizations, help journalists
+  investigate power, and reunite families with missing persons — or it
+  can stalk, harass, and harm. Choose the first category. Decline to
+  participate in the second.
+- **Know your jurisdiction.** Passive does not mean unlimited. CFAA,
+  DMCA, GDPR, and state-level stalking statutes all apply. Know your
+  jurisdiction and your target's jurisdiction.
+
+Full scope details for today's target: `Target-Briefs/Target-Caterpillar.md`
+
+---
+
+## License
+
+MIT, plus an ethical-use statement. See `LICENSE`.
+
+---
+
+## Contact
+
+**Wildcard Industries LLC** — Cybersecurity & OSINT Consulting · Lee's Summit, MO
+
+Questions, corrections, war stories, and pull requests welcome.
