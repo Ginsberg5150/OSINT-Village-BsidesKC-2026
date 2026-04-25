@@ -1,0 +1,208 @@
+# 00 · Students — Start Here
+
+**Read this before the workshop starts. Ten minutes, in order.**
+
+If you walked in cold and didn't pre-install anything, that's okay —
+you can still do the Hunter track. Section 3 below has a "minimum viable
+setup" path that gets you working in five minutes on conference Wi-Fi.
+
+---
+
+## 1. Pick your tier (at the door)
+
+Grab the colored sticker that matches your tier and put it on your badge.
+The instructor uses sticker color to know how much help to offer at your
+table.
+
+| Tier | Color | You belong here if... |
+|------|-------|----------------------|
+| 🔵 **Hunter** | Blue | OSINT is new to you, OR you've poked at it but never built a real corporate dossier end-to-end |
+| 🟠 **Ghost** | Orange | You're comfortable on a terminal, you've done recon before, you want to automate and chase the obscure |
+
+**Not sure? Pick Hunter.** Every Hunter lab has a "Ghost preview"
+challenge at the bottom — when you finish the core checklist, attempt
+the stretch. Many Hunters end the day doing Ghost work without
+consciously switching tracks.
+
+---
+
+## 2. Pre-flight checklist · Run this BEFORE you touch a target
+
+Non-negotiable. About 90 seconds. This is the line between a
+professional and a hobbyist.
+
+- [ ] **VPN active** — verified exit IP that is *not* your home ISP
+- [ ] **Dedicated browser profile** open — *not* your personal browser
+- [ ] **Personal accounts signed out** — Google, LinkedIn, GitHub, all of them
+- [ ] **LinkedIn → Private Mode** before you view any profile
+- [ ] **Sock puppet ready** *(only if today's work uses a logged-in source)*
+- [ ] **Notes open** with the target name + the first timestamp
+- [ ] **Sober, calm, focused** — if you're not, walk away and come back
+
+Every query you run today leaves a trail back to you unless you plan
+for it not to. Plan for it.
+
+Full reference: `Student-References/Pre-Flight-Checklist.md`
+
+---
+
+## 3. What to install (in order of priority)
+
+### 3a. Everyone — minimum viable setup (5 minutes)
+
+This is enough to do the Hunter track end-to-end. Don't worry about
+the rest until you have this working.
+
+- **A modern browser** — Firefox or Chromium-based. Have a second
+  profile ready that is signed out of all your personal accounts.
+- **Python 3.10 or newer** — verify in a terminal:
+  ```bash
+  python3 --version
+  ```
+- **Git** — verify:
+  ```bash
+  git --version
+  ```
+- **Clone this repo and install Python deps:**
+  ```bash
+  git clone https://github.com/Ginsberg5150/OSINT-Village-BsidesKC-2026.git
+  cd OSINT-Village-BsidesKC-2026
+  pip install -r requirements.txt
+  ```
+- **Confirm it works** — this should print a list of subdomains:
+  ```bash
+  python3 osint-toolkit/cert_enum.py example.com | head
+  ```
+
+### 3b. Hunters and Ghosts — useful command-line tools
+
+You don't *need* these for Hunter work; they make several Ghost-tier
+lab steps faster. Install before the workshop if you can.
+
+```bash
+# ProjectDiscovery suite (subdomain + DNS + ASN aggregators)
+# Requires Go 1.21+ — install via https://go.dev/doc/install if needed
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest
+go install -v github.com/projectdiscovery/asnmap/cmd/asnmap@latest
+
+# theHarvester — IMPORTANT: install from git, not from PyPI
+# (the `theHarvester` package on PyPI is a placeholder — wrong code)
+pip install git+https://github.com/laramies/theHarvester.git
+
+# Classics — subdomain probing, web tech fingerprinting, DNS
+sudo apt install whatweb whois dnsutils       # Debian / Ubuntu / Kali
+brew install whatweb whois bind               # macOS
+
+# Browser extension — instant tech-stack readout on any page
+# Wappalyzer — install from the Firefox or Chrome web store
+```
+
+**Verify what you installed:**
+
+```bash
+subfinder -version
+dnsx -version
+asnmap -version
+which theHarvester && theHarvester -h | head -1
+whatweb --version
+dig -v
+```
+
+If any of those return "command not found," that's fine — the lab will
+note when each tool is needed and you can either install on the fly,
+fall back to a Python-only path, or use the mirror data in `Mirrors/`.
+
+### 3c. Free accounts — all optional, all keyless-default
+
+**You do not need any account or API key to do the Hunter work in this
+class.** Every script in `osint-toolkit/` runs keyless by default.
+
+That said, a few free accounts unlock deeper lookups if you have time
+to sign up. The "you don't need a key for the basics" line is itself
+one of the things you're here to learn.
+
+| Account | What it unlocks | Free tier |
+|---------|----------------|-----------|
+| **Shodan** | Deeper host lookups beyond the free InternetDB | Free tier exists; $5 lifetime sales run periodically |
+| **Censys** | ~250 queries/month on the Community tier | Register early — the free option is increasingly buried on their site |
+| **hunter.io** | Email patterns and verification | 25 queries/month |
+| **GitHub** | Code search at meaningful volume | Free; you probably already have one |
+| **OpenCorporates** | Cross-jurisdiction corporate lookups | Free tier with rate limits |
+
+If you signed up for any of these, drop the keys into `.env`
+(see `.env.example` in the repo root). If you didn't, the class
+proceeds without them — and that's an intentional teaching point.
+
+---
+
+## 4. How the day works
+
+Each phase of the day has its own **module file** (lecture material +
+demo flow) and a **lab file per tier** (your hands-on work).
+
+| Phase | Module file | Lab files |
+|-------|-------------|-----------|
+| 1 — Identify | `Class-Modules/Module-1-Identify.md` | `Student-Labs/Lab-Module-1-{Hunter,Ghost}.md` |
+| 2 — Passive Enumeration | `Class-Modules/Module-2-Passive-Enumeration.md` | `Student-Labs/Lab-Module-2-{Hunter,Ghost}.md` |
+| 3 — Active Techniques, Passive Demos | `Class-Modules/Module-3-Active-Techniques-Passive-Demos.md` | `Student-Labs/Lab-Module-3-{Hunter,Ghost}.md` |
+| 4 — Profile and Pivot | `Class-Modules/Module-4-Profile-and-Pivot.md` | `Student-Labs/Lab-Module-4-{Hunter,Ghost}.md` |
+| 5 — Report | `Class-Modules/Module-5-Report.md` | `Student-Labs/Lab-Module-5-{Hunter,Ghost}.md` |
+
+The **Module file** is what the instructor walks through up front. The
+**Lab file** is your assignment for the next ~30 minutes. You don't
+have to wait for the instructor to "release" each lab — if you're
+ahead, keep going.
+
+The dossier you build is the through-line. Module 1 outputs feed Module
+2; Module 2 outputs feed Module 3; etc. By Module 5 you're rating
+findings and assembling the final document.
+
+---
+
+## 5. Where to look when you're stuck
+
+| Situation | Go to |
+|-----------|-------|
+| "What's that source again?" | `Student-Handouts/Corporate-Recon-Cheatsheet.pdf` |
+| "How do I rate this finding?" | `Student-References/Admiralty-Code.md` |
+| "Should I trust this source?" | `Student-References/CRAAP-Test.md` |
+| "Why am I checking my OPSEC again?" | `Student-References/Pre-Flight-Checklist.md` |
+| "What's a sock puppet for?" | `Student-References/Sock-Puppets.md` |
+| "What jobs use this skill?" | `Student-References/Jobs-Pipeline.md` |
+| "What does this script do?" | `osint-toolkit/README.md` |
+| "Live source returned 429 / 502 / empty" | `Mirrors/README.md` — fall back to the local snapshot |
+
+If you're still stuck after checking the relevant doc, raise your hand.
+The instructor or a Ghost-tier attendee at your table can help.
+
+---
+
+## 6. Today's target
+
+**Caterpillar Inc.** (NYSE: CAT) · `caterpillar.com`
+
+Read the brief before Module 1 starts:
+**`Target-Briefs/Target-Caterpillar.md`**
+
+Three lines you should commit to memory before you touch the target:
+
+1. **Passive only.** No active scanning of CAT infrastructure. No auth
+   attempts. No contact with employees, dealers, or customers.
+2. **Plant addresses are public; building access details are not.**
+   Map the locations; don't case the buildings.
+3. **No employee names in your dossier.** Document the *pattern*
+   ("first.last for engineering") rather than the person.
+
+Full scope, ethics, and reasoning: `Target-Briefs/Target-Caterpillar.md`
+
+---
+
+## 7. The promise
+
+You walked in with a domain name. You're leaving with a workflow.
+
+The domain changes every engagement. The workflow is yours forever.
+
+When you're ready, open **`Class-Modules/Module-1-Identify.md`** and
+let's go.
