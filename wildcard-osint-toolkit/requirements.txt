@@ -1,0 +1,16 @@
+# Wildcard OSINT Toolkit v2 — Python dependencies
+# Install: pip install -r requirements.txt
+
+# Core — required for all scripts
+requests>=2.31.0
+
+# domain_to_dossier.py — DNS + Team Cymru ASN lookup
+dnspython>=2.4.0
+
+# favicon_pivot.py — Shodan-compatible favicon hash
+mmh3>=4.0.0
+
+# plants_to_kml.py — KML generation
+simplekml>=1.3.6
+
+# edgar_subsidiaries.py — uses only stdlib + requests (no extras needed)
